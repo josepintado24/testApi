@@ -1,6 +1,8 @@
 package com.empresa.controller;
 
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.empresa.entity.lco0001tgen;
+import com.empresa.entity.lco0001tgenPk;
 import com.empresa.service.lcogenService;
 
 @RestController
@@ -35,10 +38,21 @@ public class lcgenController {
 	@GetMapping("/Listarlcgen/{opcion}/{tablename}")
 	@ResponseBody
 	public ResponseEntity<List<lco0001tgen>> listaDocente(@PathVariable("opcion") int opcion,
-														  @PathVariable("tablename") String tablename,
-														  @RequestBody lco0001tgen obj) {
-		
-		List<lco0001tgen> lista = proveedorService.listaProveedor(opcion, tablename, obj);
+														  @PathVariable("tablename") String tablename) {
+		lco0001tgen objSalida = new lco0001tgen();
+		lco0001tgenPk pk = new lco0001tgenPk();
+		pk.setTl_codtabla("00");
+		pk.setTl_clave("00");
+		objSalida.setPkID(pk);
+		objSalida.setTl_descri("a");
+		objSalida.setTl_descri2("a");
+		objSalida.setTl_usrcrea("a");
+		objSalida.setTl_feccrea(LocalDate.now());
+		objSalida.setTl_hracrea(LocalTime.now());
+		objSalida.setTl_usract("a");
+		objSalida.setTl_fecact(LocalDate.now());
+		objSalida.setTl_hraact(LocalTime.now());
+		List<lco0001tgen> lista = proveedorService.listaProveedor(opcion, tablename, objSalida);
 		return ResponseEntity.ok(lista);
 	}
 	
@@ -50,7 +64,8 @@ public class lcgenController {
 																  @RequestBody lco0001tgen obj){
 		Map<String, Object> salida = new HashMap<>();
 		try {				
-				proveedorService.registrarNuevoRegistro(opcion, tablename, obj);		
+				proveedorService.registrarNuevoRegistro(opcion, tablename, obj);
+				salida.put("mensaje", "Registrado correctamente");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -65,7 +80,10 @@ public class lcgenController {
 																@RequestBody lco0001tgen obj){
 		Map<String, Object> salida = new HashMap<>();
 		try {
+			obj.setTl_fecact(LocalDate.now());
+			obj.setTl_hraact(LocalTime.now());
 			proveedorService.editarRegistro(opcion, tl_codtabla, obj);
+			salida.put("mensaje", "Actualizado correctamente");
 		}catch (Exception e) {
 			e.printStackTrace();
 			salida.put("mensaje", "Error");
@@ -73,14 +91,31 @@ public class lcgenController {
 		return ResponseEntity.ok(salida);
 	}
 	
-	@DeleteMapping("elimTablaGen/{opcion}/{cod_tabla}")
+	@DeleteMapping("elimTablaGen/{opcion}/{cod_tabla}/{id1}/{id2}")
 	public ResponseEntity<Map<String, Object>> eliminarRegistro(@PathVariable("opcion") int opcion,
 																@PathVariable("cod_tabla") String cod_tabla,
-																@RequestBody lco0001tgen obj){
+																@PathVariable("id1") String id1,
+																@PathVariable("id2") String id2){
 				Map<String, Object> salida = new HashMap<>();
 				try {
-					//lco0001tgen objSalida = new lco0001tgen();
-					proveedorService.eliminarRegistro(opcion, cod_tabla, obj);
+					lco0001tgen objSalida = new lco0001tgen();
+					lco0001tgenPk pk = new lco0001tgenPk();
+					pk.setTl_codtabla(id1);
+					pk.setTl_clave(id2);
+					
+					objSalida.setPkID(pk);
+					objSalida.setTl_descri("a");
+					objSalida.setTl_descri2("a");
+					objSalida.setTl_usrcrea("a");
+					objSalida.setTl_feccrea(LocalDate.now());
+					objSalida.setTl_hracrea(LocalTime.now());
+					objSalida.setTl_usract("a");
+					objSalida.setTl_fecact(LocalDate.now());
+					objSalida.setTl_hraact(LocalTime.now());
+					
+					
+					proveedorService.eliminarRegistro(opcion, cod_tabla, objSalida);
+					salida.put("mensaje", "Eliminado correctamente");
  				} catch(Exception e){
  					e.printStackTrace();
  					salida.put("mensaje", "Error");

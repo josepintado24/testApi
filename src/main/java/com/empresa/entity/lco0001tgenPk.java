@@ -17,8 +17,19 @@ import lombok.NoArgsConstructor;
 @Embeddable
 public class lco0001tgenPk implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String tl_codtabla  ;
 	String tl_clave ;
+	
+	public lco0001tgenPk(String id1, String id2) {
+		// TODO Auto-generated constructor stub
+	}
+	public lco0001tgenPk() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public String getTl_codtabla() {
 		return tl_codtabla;

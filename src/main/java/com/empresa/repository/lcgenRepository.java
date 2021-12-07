@@ -4,7 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -34,6 +37,8 @@ public interface lcgenRepository extends JpaRepository<lco0001tgen, lco0001tgenP
 	@Query(value="{call CrudLcoGen(:opcion, :tablename, :tl_codtabla, :tl_clave, :tl_descri,"
 			+ " :tl_descri2, :tl_usrcrea, :tl_feccrea, :tl_hracrea, :tl_usract, :tl_fecact, :tl_hraact)}"
 			, nativeQuery = true)
+	@Transactional
+	@Modifying
 	void registrarRegistro(@Param("opcion") int option,
 			  			   @Param("tablename") String tablename,
 			               @Param("tl_codtabla") String tl_codtabla,
@@ -50,6 +55,8 @@ public interface lcgenRepository extends JpaRepository<lco0001tgen, lco0001tgenP
 	@Query(value="{call CrudLcoGen(:opcion, :tablename, :tl_codtabla, :tl_clave, :tl_descri,"
 			+ " :tl_descri2, :tl_usrcrea, :tl_feccrea, :tl_hracrea, :tl_usract, :tl_fecact, :tl_hraact)}"
 			, nativeQuery = true)
+	@Transactional
+	@Modifying
 	void actualizaRegistro(@Param("opcion") int option,
 			               @Param("tablename") String tablename,
 			               @Param("tl_codtabla") String tl_codtabla,
@@ -66,6 +73,8 @@ public interface lcgenRepository extends JpaRepository<lco0001tgen, lco0001tgenP
 	@Query(value="{call CrudLcoGen(:opcion, :tablename, :tl_codtabla, :tl_clave, :tl_descri,"
 			+ " :tl_descri2, :tl_usrcrea, :tl_feccrea, :tl_hracrea, :tl_usract, :tl_fecact, :tl_hraact)}"
 			, nativeQuery = true)
+	@Transactional
+	@Modifying
 	void eliminaRegistro(@Param("opcion") int option,
                          @Param("tablename") String tablename,
                          @Param("tl_codtabla") String tl_codtabla,
