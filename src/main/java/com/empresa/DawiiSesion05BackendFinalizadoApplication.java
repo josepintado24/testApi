@@ -7,8 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DawiiSesion05BackendFinalizadoApplication {
 
 	public static void main(String[] args) {
+				
 		SpringApplication.run(DawiiSesion05BackendFinalizadoApplication.class, args);
-		System.out.print("funciono Pruebas Doble Primary port 8061");
+		//System.out.print("funciono Pruebas Doble Primary port 8061");
 	}
 
 }

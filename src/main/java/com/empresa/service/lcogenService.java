@@ -4,25 +4,25 @@ import java.util.List;
 
 
 
-import com.empresa.entity.lco0001tgen;
-import com.empresa.entity.lco0001tgenPk;
+import com.empresa.entity.lcotgen;
 
 public interface lcogenService {
 
-	public abstract List<lco0001tgen> listaProveedor(int opcion, String tablename, lco0001tgen obj);
+	//DEFINIMOS EL METODO PARA LISTAR REGISTROS
+	//public abstract List<lcotgen> listaRegistros(int opcion, String p_ciacont, lcotgen obj);
 	
+	//DEFINIMOS EL METODO PARA CREAR REGISTROS
+	void registrarNuevoRegistro(int opcion, String p_ciacont, lcotgen obj);
+	
+	//DEFINIMOS EL METODO PARA EDITAR REGISTROS
+	void editarRegistro(int opcion, String p_ciacont, lcotgen obj);
+	
+	//DEFINIMOS EL METODO PARA ELIMINAR REGISTRO
+	void eliminarRegistro(int opcion, String p_ciacont, lcotgen obj);
+	
+	//DEFINIMOS EL METODO PARA LISTAR REGISTROS ESPECIFICOS
+	public abstract List<lcotgen> listaUnRegistro(int opcion, String p_ciacont, lcotgen obj);
 
-	
-
-	public abstract lco0001tgen insertaActualizaproveedor(lco0001tgen obj);
-	
-	void registrarNuevoRegistro(int opcion, String tablename, lco0001tgen obj);
-	
-	void editarRegistro(int opcion, String tablename, lco0001tgen obj);
-	
-	void eliminarRegistro(int opcion, String tablename, lco0001tgen obj);
-
-	void Eliminar(lco0001tgenPk pk);
 	
 	
 

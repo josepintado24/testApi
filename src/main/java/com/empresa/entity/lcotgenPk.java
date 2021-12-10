@@ -3,19 +3,14 @@ package com.empresa.entity;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
-
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @EqualsAndHashCode
 @Embeddable
-public class lco0001tgenPk implements Serializable {
+public class lcotgenPk implements Serializable {
 	
 	/**
 	 * 
@@ -24,10 +19,10 @@ public class lco0001tgenPk implements Serializable {
 	String tl_codtabla  ;
 	String tl_clave ;
 	
-	public lco0001tgenPk(String id1, String id2) {
+	public lcotgenPk(String id1, String id2) {
 		// TODO Auto-generated constructor stub
 	}
-	public lco0001tgenPk() {
+	public lcotgenPk() {
 		// TODO Auto-generated constructor stub
 	}
 	

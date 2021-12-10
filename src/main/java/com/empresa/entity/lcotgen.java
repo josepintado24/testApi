@@ -10,14 +10,14 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-
+//CLASE QUE REPRESENTA UNA TABLA DE LA BASE DE DATOS
 @Data
 @Entity
 @Table(name="lco0001tgen")
-public class lco0001tgen {
+public class lcotgen {
 
 	@EmbeddedId
-	private lco0001tgenPk pkID;
+	private lcotgenPk pkID;
 	
 		@Column(name="tl_descri")
 		private String tl_descri;
@@ -43,11 +43,11 @@ public class lco0001tgen {
 		@Column(name="tl_hraact")
 		private LocalTime tl_hraact;
 
-		public lco0001tgenPk getPkID() {
+		public lcotgenPk getPkID() {
 			return pkID;
 		}
 
-		public void setPkID(lco0001tgenPk pkID) {
+		public void setPkID(lcotgenPk pkID) {
 			this.pkID = pkID;
 		}
 
@@ -115,6 +115,25 @@ public class lco0001tgen {
 			this.tl_hraact = tl_hraact;
 		}
 
+		public lcotgen(lcotgenPk pkID, String tl_descri, String tl_descri2, String tl_usrcrea, LocalDate tl_feccrea,
+				LocalTime tl_hracrea, String tl_usract, LocalDate tl_fecact, LocalTime tl_hraact) {
+			super();
+			this.pkID = pkID;
+			this.tl_descri = tl_descri;
+			this.tl_descri2 = tl_descri2;
+			this.tl_usrcrea = tl_usrcrea;
+			this.tl_feccrea = tl_feccrea;
+			this.tl_hracrea = tl_hracrea;
+			this.tl_usract = tl_usract;
+			this.tl_fecact = tl_fecact;
+			this.tl_hraact = tl_hraact;
+		}
+
+		public lcotgen() {
+			super();
+		}
+
+		
 		
 		
 
