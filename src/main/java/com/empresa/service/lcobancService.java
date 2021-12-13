@@ -6,6 +6,12 @@ import java.util.List;
 
 public interface lcobancService {
 
-    public abstract List<Object[]> listarBanc(int opcion, String p_ciacont, lcobanc obj);
+    public abstract List<Object[]> listarBco(int opcion, String p_ciacont, lcobanc obj);
+    
+    public abstract List<Object[]> listarCaj(int opcion, String p_ciacont, lcobanc obj);
+    
+    //Registrar banco o caja
+    void registrarBco(int opcion, String p_ciacont, lcobanc obj);
+
 }
 

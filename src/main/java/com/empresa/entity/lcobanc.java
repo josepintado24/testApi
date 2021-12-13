@@ -24,6 +24,14 @@ public class lcobanc {
     private String bl_entfina;
     private String bl_tipocta;
     private String bl_flcaja;
+    private String bl_fche1;
+    private String bl_fche2;
+    private String bl_fche3;
+    private String bl_nche1;
+    private String bl_nche2;
+    private String bl_nche3;
+    private String bl_frche;
+    private String bl_modesdcta;
     private String bl_usrcrea;
     private LocalDate bl_feccrea;
     private LocalTime bl_hracrea;
@@ -126,10 +134,14 @@ public class lcobanc {
 	public void setBl_hraact(LocalTime bl_hraact) {
 		this.bl_hraact = bl_hraact;
 	}
+	
+	
+	
 	public lcobanc(String bl_codbco, String bl_nombco, String bl_tipmon, String bl_numcta, String bl_estado,
 			String bl_cuenta, String bl_desccta, String bl_entfina, String bl_tipocta, String bl_flcaja,
-			String bl_usrcrea, LocalDate bl_feccrea, LocalTime bl_hracrea, String bl_usract, LocalDate bl_fecact,
-			LocalTime bl_hraact) {
+			String bl_fche1, String bl_fche2, String bl_fche3, String bl_nche1, String bl_nche2, String bl_nche3,
+			String bl_frche, String bl_modesdcta, String bl_usrcrea, LocalDate bl_feccrea, LocalTime bl_hracrea,
+			String bl_usract, LocalDate bl_fecact, LocalTime bl_hraact) {
 		super();
 		this.bl_codbco = bl_codbco;
 		this.bl_nombco = bl_nombco;
@@ -141,6 +153,14 @@ public class lcobanc {
 		this.bl_entfina = bl_entfina;
 		this.bl_tipocta = bl_tipocta;
 		this.bl_flcaja = bl_flcaja;
+		this.bl_fche1 = bl_fche1;
+		this.bl_fche2 = bl_fche2;
+		this.bl_fche3 = bl_fche3;
+		this.bl_nche1 = bl_nche1;
+		this.bl_nche2 = bl_nche2;
+		this.bl_nche3 = bl_nche3;
+		this.bl_frche = bl_frche;
+		this.bl_modesdcta = bl_modesdcta;
 		this.bl_usrcrea = bl_usrcrea;
 		this.bl_feccrea = bl_feccrea;
 		this.bl_hracrea = bl_hracrea;
@@ -151,6 +171,56 @@ public class lcobanc {
 	public lcobanc() {
 		super();
 	}
+	public String getBl_fche1() {
+		return bl_fche1;
+	}
+	public void setBl_fche1(String bl_fche1) {
+		this.bl_fche1 = bl_fche1;
+	}
+	public String getBl_fche2() {
+		return bl_fche2;
+	}
+	public void setBl_fche2(String bl_fche2) {
+		this.bl_fche2 = bl_fche2;
+	}
+	public String getBl_fche3() {
+		return bl_fche3;
+	}
+	public void setBl_fche3(String bl_fche3) {
+		this.bl_fche3 = bl_fche3;
+	}
+	public String getBl_nche1() {
+		return bl_nche1;
+	}
+	public void setBl_nche1(String bl_nche1) {
+		this.bl_nche1 = bl_nche1;
+	}
+	public String getBl_nche2() {
+		return bl_nche2;
+	}
+	public void setBl_nche2(String bl_nche2) {
+		this.bl_nche2 = bl_nche2;
+	}
+	public String getBl_nche3() {
+		return bl_nche3;
+	}
+	public void setBl_nche3(String bl_nche3) {
+		this.bl_nche3 = bl_nche3;
+	}
+	public String getBl_frche() {
+		return bl_frche;
+	}
+	public void setBl_frche(String bl_frche) {
+		this.bl_frche = bl_frche;
+	}
+	public String getBl_modesdcta() {
+		return bl_modesdcta;
+	}
+	public void setBl_modesdcta(String bl_modesdcta) {
+		this.bl_modesdcta = bl_modesdcta;
+	}
+	
+	
 
     
     

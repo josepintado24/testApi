@@ -84,7 +84,7 @@ public class lconumeController {
 	
 	@GetMapping("/Listarlconume/{p_ciacont}/{nl_subdia}/{nl_anio}/{nl_mes}")
 	@ResponseBody
-	public ResponseEntity<lconume> listaEspecifico(@PathVariable("p_ciacont") String p_ciacont,
+	public ResponseEntity<List<lconume>> listaEspecifico(@PathVariable("p_ciacont") String p_ciacont,
 														  @PathVariable("nl_subdia") String nl_subdia,
 														  @PathVariable("nl_anio") String nl_anio,
 														  @PathVariable("nl_mes") String nl_mes) throws Exception {
@@ -111,11 +111,10 @@ public class lconumeController {
 			//COMO PRIMER PARAMETRO LE PASAMOS LA OPCION 0, QUE REALIZARA EL METODO GET
 			//COMO SEGUNDO PARAMETRO LE PASAMOS EL P_CIACONT
 			//COMO TERCER PARAMETRO LE PASAMOS EL OBJETO DE SALIDA, REQUERIDO POR EL PROCEDURE
-			//List<lconume> lista = service.listaUnNume(0, p_ciacont, objSalida);
-
-
+			List<lconume> lista = service.listaUnNume(0, p_ciacont, objSalida);
+			
 			//DEVUELVE LA LISTA SI LA CONSULTA FUE EXITOSA
-			return ResponseEntity.ok(objSalida);
+			return ResponseEntity.ok(lista);
 		}catch(Exception e) {
 			//DEVUELVE LA EXEPCION QUE HAYA CAPTURADO
 			throw new Exception("Error HUR1002 + " + e.getMessage());
