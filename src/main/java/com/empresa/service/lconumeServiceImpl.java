@@ -23,6 +23,14 @@ public class lconumeServiceImpl implements lconumeService{
 									obj.getNl_nume(), obj.getNl_usrcrea(), obj.getNl_feccrea(),
 									obj.getNl_hracrea(), obj.getNl_usract(), obj.getNl_fecact(), obj.getNl_hraact());
 	}
+	
+	@Override
+	public List<lconume> listaUnNume(int opcion, String p_ciacont, lconume obj) {
+		return repository.listarNumeEspecifico(opcion, p_ciacont,
+				obj.getPkID().getNl_subdia(), obj.getPkID().getNl_anio(), obj.getPkID().getNl_mes(),
+				obj.getNl_nume(), obj.getNl_usrcrea(), obj.getNl_feccrea(),
+				obj.getNl_hracrea(), obj.getNl_usract(), obj.getNl_fecact(), obj.getNl_hraact());
+	}
 
 	@Override
 	public void registrarNume(int opcion, String p_ciacont, lconume obj) {

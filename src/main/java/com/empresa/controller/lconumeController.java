@@ -42,7 +42,8 @@ public class lconumeController {
 	PARAMETROS:
 		P_CIACONT, NUMERO DE LA COMPAÑIA
 	*/
-	@GetMapping("/Listarlconume/{p_ciacont}")
+	
+	@GetMapping(value="/Listarlconume/{p_ciacont}", produces="application/json")
 	@ResponseBody
 	public ResponseEntity<List<Object[]>> lista(@PathVariable("p_ciacont") String p_ciacont) throws Exception {
 			//CREAMOS UN OBJETO PARA LLENAR LOS DATOS DE SALIDA
@@ -52,8 +53,8 @@ public class lconumeController {
 			//SETEAMOS LOS VALORES, ESTOS NO SERAN REQUERIDOS DESDE EL FRONT
 			//SON REQUERIDOS PARA EL PROCEDURE
 			pk.setNl_subdia("");
-			pk.setNl_anio("2021");
-			pk.setNl_mes("02");
+			pk.setNl_anio("");
+			pk.setNl_mes("");
 			objSalida.setNl_nume(5);
 			objSalida.setPkID(pk);
 			objSalida.setNl_usrcrea("");
@@ -79,6 +80,48 @@ public class lconumeController {
 			}
 			
 			
+	}
+	
+	@GetMapping("/Listarlconume/{p_ciacont}/{nl_subdia}/{nl_anio}/{nl_mes}")
+	@ResponseBody
+	public ResponseEntity<lconume> listaEspecifico(@PathVariable("p_ciacont") String p_ciacont,
+														  @PathVariable("nl_subdia") String nl_subdia,
+														  @PathVariable("nl_anio") String nl_anio,
+														  @PathVariable("nl_mes") String nl_mes) throws Exception {
+		//CREAMOS UN OBJETO PARA LLENAR LOS DATOS DE SALIDA
+		lconume objSalida = new lconume();
+		//CREAMOS UN OBJETO QUE SERA LA LLAVE PRIMARIA
+		lconumePk pk = new lconumePk();
+		//SETEAMOS LOS VALORES, ESTOS NO SERAN REQUERIDOS DESDE EL FRONT
+		//SON REQUERIDOS PARA EL PROCEDURE
+		pk.setNl_subdia(nl_subdia);
+		pk.setNl_anio(nl_anio);
+		pk.setNl_mes(nl_mes);
+		objSalida.setNl_nume(5);
+		objSalida.setPkID(pk);
+		objSalida.setNl_usrcrea("");
+		objSalida.setNl_feccrea(LocalDate.now());
+		objSalida.setNl_hracrea(LocalTime.now());
+		objSalida.setNl_usract("");
+		objSalida.setNl_fecact(LocalDate.now());
+		objSalida.setNl_hraact(LocalTime.now());
+		try {
+			//CREAMOS UNA LISTA Y LA LLENAMOS CON LA DATA QUE NOS LLEGA DE LA BASE DE DATOS
+			//TAMBIEN LLAMAMOS AL OBJETO SERVICE E INVOCAMOS A SU METODO LISTA REGISTROS
+			//COMO PRIMER PARAMETRO LE PASAMOS LA OPCION 0, QUE REALIZARA EL METODO GET
+			//COMO SEGUNDO PARAMETRO LE PASAMOS EL P_CIACONT
+			//COMO TERCER PARAMETRO LE PASAMOS EL OBJETO DE SALIDA, REQUERIDO POR EL PROCEDURE
+			//List<lconume> lista = service.listaUnNume(0, p_ciacont, objSalida);
+
+
+			//DEVUELVE LA LISTA SI LA CONSULTA FUE EXITOSA
+			return ResponseEntity.ok(objSalida);
+		}catch(Exception e) {
+			//DEVUELVE LA EXEPCION QUE HAYA CAPTURADO
+			throw new Exception("Error HUR1002 + " + e.getMessage());
+		}
+
+
 	}
 	
 	/*
