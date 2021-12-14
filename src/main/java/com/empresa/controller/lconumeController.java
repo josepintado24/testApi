@@ -5,7 +5,6 @@ import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -63,6 +62,8 @@ public class lconumeController {
 			objSalida.setNl_usract("");
 			objSalida.setNl_fecact(LocalDate.now());
 			objSalida.setNl_hraact(LocalTime.now());
+			
+
 			try {
 				//CREAMOS UNA LISTA Y LA LLENAMOS CON LA DATA QUE NOS LLEGA DE LA BASE DE DATOS
 				//TAMBIEN LLAMAMOS AL OBJETO SERVICE E INVOCAMOS A SU METODO LISTA REGISTROS
@@ -70,8 +71,6 @@ public class lconumeController {
 				//COMO SEGUNDO PARAMETRO LE PASAMOS EL P_CIACONT
 				//COMO TERCER PARAMETRO LE PASAMOS EL OBJETO DE SALIDA, REQUERIDO POR EL PROCEDURE
 				List<Object[]> lista = service.listaNume(0, p_ciacont, objSalida);
-				
-				
 				//DEVUELVE LA LISTA SI LA CONSULTA FUE EXITOSA
 				return ResponseEntity.ok(lista);
 			}catch(Exception e) {
@@ -123,6 +122,46 @@ public class lconumeController {
 
 	}
 	
+	@GetMapping("/Listarlconume/{p_ciacont}/{nl_anio}/{nl_mes}")
+	@ResponseBody
+	public ResponseEntity<List<Object[]>> listaFiltro(@PathVariable("p_ciacont") String p_ciacont,
+														  @PathVariable("nl_anio") String nl_anio,
+														  @PathVariable("nl_mes") String nl_mes) throws Exception {
+		//CREAMOS UN OBJETO PARA LLENAR LOS DATOS DE SALIDA
+		lconume objSalida = new lconume();
+		//CREAMOS UN OBJETO QUE SERA LA LLAVE PRIMARIA
+		lconumePk pk = new lconumePk();
+		//SETEAMOS LOS VALORES, ESTOS NO SERAN REQUERIDOS DESDE EL FRONT
+		//SON REQUERIDOS PARA EL PROCEDURE
+		pk.setNl_subdia("");
+		pk.setNl_anio(nl_anio);
+		pk.setNl_mes(nl_mes);
+		objSalida.setNl_nume(5);
+		objSalida.setPkID(pk);
+		objSalida.setNl_usrcrea("");
+		objSalida.setNl_feccrea(LocalDate.now());
+		objSalida.setNl_hracrea(LocalTime.now());
+		objSalida.setNl_usract("");
+		objSalida.setNl_fecact(LocalDate.now());
+		objSalida.setNl_hraact(LocalTime.now());
+		try {
+			//CREAMOS UNA LISTA Y LA LLENAMOS CON LA DATA QUE NOS LLEGA DE LA BASE DE DATOS
+			//TAMBIEN LLAMAMOS AL OBJETO SERVICE E INVOCAMOS A SU METODO LISTA REGISTROS
+			//COMO PRIMER PARAMETRO LE PASAMOS LA OPCION 0, QUE REALIZARA EL METODO GET
+			//COMO SEGUNDO PARAMETRO LE PASAMOS EL P_CIACONT
+			//COMO TERCER PARAMETRO LE PASAMOS EL OBJETO DE SALIDA, REQUERIDO POR EL PROCEDURE
+			List<Object[]> lista = service.listaNume(0, p_ciacont, objSalida);
+			
+			//DEVUELVE LA LISTA SI LA CONSULTA FUE EXITOSA
+			return ResponseEntity.ok(lista);
+		}catch(Exception e) {
+			//DEVUELVE LA EXEPCION QUE HAYA CAPTURADO
+			throw new Exception("Error HUR1002 + " + e.getMessage());
+		}
+
+
+	}
+	
 	/*
 	METODO POST PARA LISTAR LOS REGISTROS SEGUN EL P_CIACONT(NUMERO DE LA COMPAÑIA), COD_TABLA Y COD_CLAVE
 	PARAMETROS:
@@ -149,8 +188,8 @@ public class lconumeController {
 				//COMO TERCER PARAMETRO LE PASAMOS EL OBJETO QUE AÑADIREMOS
 				obj.setNl_feccrea(LocalDate.now());
 				obj.setNl_hracrea(LocalTime.now());
-				obj.setNl_fecact(LocalDate.of(0000, 01, 01));
-				obj.setNl_hraact(LocalTime.of(00, 00));
+				obj.setNl_fecact(LocalDate.now());
+				obj.setNl_hraact(LocalTime.now());
 				service.registrarNume(1, p_ciacont, obj);
 				salida.put("mensaje", "Registrado correctamente");
 			}else {
@@ -184,6 +223,8 @@ public class lconumeController {
 			List<lcotgen> lista = serviceGeneral.listaUnRegistro(0, p_ciacont, listageneral);
 			if(lista!=null) {
 				//ACTUALIZAMOS EL DIA Y LA HORA 
+				obj.setNl_feccrea(LocalDate.now());
+				obj.setNl_hracrea(LocalTime.now());
 				obj.setNl_fecact(LocalDate.now());
 				obj.setNl_hraact(LocalTime.now());
 				
@@ -210,7 +251,7 @@ public class lconumeController {
 		COD_TABLA, CODIGO DE LA TABLA, CAMPO DE LA PRIMARY KEY
 		COD_CLAVE, CLAVE DE LA TABLA, CAMPO DE LA PRIMERY KEY
 	*/
-	@DeleteMapping("elimTablanNume/{p_ciacont}/{nl_subdia}/{nl_anio}/{nl_mes}")
+	@DeleteMapping("elimTablaNume/{p_ciacont}/{nl_subdia}/{nl_anio}/{nl_mes}")
 	public ResponseEntity<Map<String, Object>> eliminarRegistro(@PathVariable("p_ciacont") String p_ciacont,
 																@PathVariable("nl_subdia") String nl_subdia,
 																@PathVariable("nl_anio") String nl_anio,
