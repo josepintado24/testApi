@@ -181,19 +181,32 @@ public class lconumeController {
 			listageneralpk.setTl_clave("");
 			lcotgen listageneral = new lcotgen(listageneralpk, "00", "00", "00", LocalDate.now(), LocalTime.now(), "", LocalDate.now(), LocalTime.now());
 			List<lcotgen> lista = serviceGeneral.listaUnRegistro(0, p_ciacont, listageneral);
+			lconume obj2 = new lconume();
+			lconumePk pk = new lconumePk(obj.getPkID().getNl_subdia(),obj.getPkID().getNl_anio(),obj.getPkID().getNl_mes() );
+			obj2.setPkID(pk);
+			obj2.setNl_feccrea(LocalDate.now());
+			obj2.setNl_hracrea(LocalTime.now());
+			obj2.setNl_fecact(LocalDate.now());
+			obj2.setNl_hraact(LocalTime.now());
+			List<lconume> listaNume = service.listaUnNume(0, p_ciacont, obj2);
 			if(lista != null) {
-				//LLAMAMOS AL OBJETO SERVICE E INVOCAMOS EL METODO REGISTRARNUEVOREGISTRO
-				//COMO PRIMER PARAMETRO LE PASAMOS LA OPCION 1, QUE CREARA UN NUEVO REGISTRO
-				//COMO SEGUNDO PARAMETRO LE PASAMOS EL P_CIACONT
-				//COMO TERCER PARAMETRO LE PASAMOS EL OBJETO QUE AÑADIREMOS
-				obj.setNl_feccrea(LocalDate.now());
-				obj.setNl_hracrea(LocalTime.now());
-				obj.setNl_fecact(LocalDate.now());
-				obj.setNl_hraact(LocalTime.now());
-				service.registrarNume(1, p_ciacont, obj);
-				salida.put("mensaje", "Registrado correctamente");
+				if(listaNume.size()==0) {
+					//LLAMAMOS AL OBJETO SERVICE E INVOCAMOS EL METODO REGISTRARNUEVOREGISTRO
+					//COMO PRIMER PARAMETRO LE PASAMOS LA OPCION 1, QUE CREARA UN NUEVO REGISTRO
+					//COMO SEGUNDO PARAMETRO LE PASAMOS EL P_CIACONT
+					//COMO TERCER PARAMETRO LE PASAMOS EL OBJETO QUE AÑADIREMOS
+					obj.setNl_feccrea(LocalDate.now());
+					obj.setNl_hracrea(LocalTime.now());
+					obj.setNl_fecact(LocalDate.now());
+					obj.setNl_hraact(LocalTime.now());
+					service.registrarNume(1, p_ciacont, obj);
+					salida.put("mensaje", "Registrado correctamente");
+				}else {
+					salida.put("mensaje", "El registro ya existe");
+				}
+				
 			}else {
-				salida.put("mensaje", "No se encontro el registro");
+				salida.put("mensaje", "Registro no encontrado");
 			}
 				
 			
@@ -215,31 +228,44 @@ public class lconumeController {
 		//CREAMOS UN MAP, QUE ALMACENARA LOS MENSAJES DE EXITO O ERROR
 		Map<String, Object> salida = new HashMap<>();		
 		
-		try {
+		try {		
 			lcotgenPk listageneralpk = new lcotgenPk();
 			listageneralpk.setTl_codtabla("02");
 			listageneralpk.setTl_clave("");
 			lcotgen listageneral = new lcotgen(listageneralpk, "00", "00", "00", LocalDate.now(), LocalTime.now(), "", LocalDate.now(), LocalTime.now());
 			List<lcotgen> lista = serviceGeneral.listaUnRegistro(0, p_ciacont, listageneral);
-			if(lista!=null) {
-				//ACTUALIZAMOS EL DIA Y LA HORA 
-				obj.setNl_feccrea(LocalDate.now());
-				obj.setNl_hracrea(LocalTime.now());
-				obj.setNl_fecact(LocalDate.now());
-				obj.setNl_hraact(LocalTime.now());
+			lconume obj2 = new lconume();
+			lconumePk pk = new lconumePk(obj.getPkID().getNl_subdia(),obj.getPkID().getNl_anio(),obj.getPkID().getNl_mes() );
+			obj2.setPkID(pk);
+			obj2.setNl_feccrea(LocalDate.now());
+			obj2.setNl_hracrea(LocalTime.now());
+			obj2.setNl_fecact(LocalDate.now());
+			obj2.setNl_hraact(LocalTime.now());
+			List<lconume> listaNume = service.listaUnNume(0, p_ciacont, obj2);
+			if(lista != null) {
+				if(listaNume.size()==1) {
+					//LLAMAMOS AL OBJETO SERVICE E INVOCAMOS EL METODO REGISTRARNUEVOREGISTRO
+					//COMO PRIMER PARAMETRO LE PASAMOS LA OPCION 1, QUE CREARA UN NUEVO REGISTRO
+					//COMO SEGUNDO PARAMETRO LE PASAMOS EL P_CIACONT
+					//COMO TERCER PARAMETRO LE PASAMOS EL OBJETO QUE AÑADIREMOS
+					obj.setNl_feccrea(LocalDate.now());
+					obj.setNl_hracrea(LocalTime.now());
+					obj.setNl_fecact(LocalDate.now());
+					obj.setNl_hraact(LocalTime.now());
+					service.editarNume(2, p_ciacont, obj);
+					salida.put("mensaje", "Actualizado correctamente");
+				}else {
+					salida.put("mensaje", "El registro no existe");
+				}
 				
-				//LLAMAMOS AL OBJETO SERVICE E INVOCAMOS AL METODO EDITAR REGISTRO
-				//COMO PRIMER PARAMETRO LE PASAMOS LA OPCION 2, QUE HARA EL UPDATE DESDE EL PROCEDURE
-				//COMO SEGUNDO PARAMETRO LE PASAMOS EL P_CIACONT
-				//COMO TERCER PARAMETRO LE PASAMOS EL OBJETO CON LOS CAMPOS QUE QUEREMOS ACTUALIZAR
-				service.editarNume(2, p_ciacont, obj);
-				salida.put("mensaje", "Actualizado correctamente");
 			}else {
-				salida.put("mensaje", "No se encontro el registro seleccionado");
+				salida.put("mensaje", "Registro no encontrado");
 			}
-		}catch (Exception e) {
+				
+			
+		} catch (Exception e) {
 			e.printStackTrace();
-			salida.put("mensaje", "Error HUR1002 "+ e.getMessage());
+			salida.put("mensaje", "Error HUR1002 "+e.getMessage());
 		}
 		return ResponseEntity.ok(salida);
 	}
@@ -265,36 +291,51 @@ public class lconumeController {
 					listageneralpk.setTl_clave("");
 					lcotgen listageneral = new lcotgen(listageneralpk, "00", "00", "00", LocalDate.now(), LocalTime.now(), "", LocalDate.now(), LocalTime.now());
 					List<lcotgen> lista = serviceGeneral.listaUnRegistro(0, p_ciacont, listageneral);
+					lconume obj2 = new lconume();
+					lconumePk pk1 = new lconumePk(nl_subdia,nl_anio,nl_mes );
+					obj2.setPkID(pk1);
+					obj2.setNl_feccrea(LocalDate.now());
+					obj2.setNl_hracrea(LocalTime.now());
+					obj2.setNl_fecact(LocalDate.now());
+					obj2.setNl_hraact(LocalTime.now());
+					List<lconume> listaNume = service.listaUnNume(0, p_ciacont, obj2);
 					if(lista != null) {
-						//CREAMOS UN OBJETO DE SALIDA
-						lconume objSalida = new lconume();
+						if(listaNume.size()==1) {
+							//CREAMOS UN OBJETO DE SALIDA
+							lconume objSalida = new lconume();
+							
+							//CREAMOS UN OBJETO DE LA LLAVE PRIMARIA
+							lconumePk pk = new lconumePk();
+							
+							//SETEAMOS LOS VALORES DE LOS CAMPOS DE LA LLAVE PRIMARIA, 
+							//PARA SABER QUE REGISTRO SE VA A ELIMINAR
+							pk.setNl_subdia(nl_subdia);
+							pk.setNl_anio(nl_anio);
+							pk.setNl_mes(nl_mes);
+							
+							//SETEAMOS LOS VALORES DEL OBJETO, QUE ES REQUERIDO POR EL PROCEDURE
+							objSalida.setPkID(pk);
+							objSalida.setNl_nume(0);
+							objSalida.setNl_usrcrea("");
+							objSalida.setNl_feccrea(LocalDate.now());
+							objSalida.setNl_hraact(LocalTime.now());
+							objSalida.setNl_usract("");
+							objSalida.setNl_fecact(LocalDate.now());
+							objSalida.setNl_hraact(LocalTime.now());
+							
+							//LLAMAMOS AL OBJETO SERVICE E INVOCAMOS AL METODO ELIMINAR REGISTRO
+							//COMO PRIMER PARAMETRO LE PASAMOS LA OPCION 3, QUE HARA EL DELETE DESDE EL PROCEDURE
+							//COMO SEGUNDO PARAMETRO LE PASAMOS EL P_CIACONT
+							//COMO TERCER PARAMETRO LE PASAMOS EL OBJETO REQUERIDO POR EL PROCEDURE
+							//DEL OBJETO SOLO TOMARA LA LLAVE PRIMARIA
+							service.eliminarNume(3, p_ciacont, objSalida);
+							salida.put("mensaje", "Eliminado correctamente");
+						}else {
+							salida.put("mensaje", "No se encontro el registro");
+						}
 						
-						//CREAMOS UN OBJETO DE LA LLAVE PRIMARIA
-						lconumePk pk = new lconumePk();
-						
-						//SETEAMOS LOS VALORES DE LOS CAMPOS DE LA LLAVE PRIMARIA, 
-						//PARA SABER QUE REGISTRO SE VA A ELIMINAR
-						pk.setNl_subdia(nl_subdia);
-						pk.setNl_anio(nl_anio);
-						pk.setNl_mes(nl_mes);
-						
-						//SETEAMOS LOS VALORES DEL OBJETO, QUE ES REQUERIDO POR EL PROCEDURE
-						objSalida.setPkID(pk);
-						objSalida.setNl_nume(0);
-						objSalida.setNl_usrcrea("");
-						objSalida.setNl_feccrea(LocalDate.now());
-						objSalida.setNl_hraact(LocalTime.now());
-						objSalida.setNl_usract("");
-						objSalida.setNl_fecact(LocalDate.now());
-						objSalida.setNl_hraact(LocalTime.now());
-						
-						//LLAMAMOS AL OBJETO SERVICE E INVOCAMOS AL METODO ELIMINAR REGISTRO
-						//COMO PRIMER PARAMETRO LE PASAMOS LA OPCION 3, QUE HARA EL DELETE DESDE EL PROCEDURE
-						//COMO SEGUNDO PARAMETRO LE PASAMOS EL P_CIACONT
-						//COMO TERCER PARAMETRO LE PASAMOS EL OBJETO REQUERIDO POR EL PROCEDURE
-						//DEL OBJETO SOLO TOMARA LA LLAVE PRIMARIA
-						service.eliminarNume(3, p_ciacont, objSalida);
-						salida.put("mensaje", "Eliminado correctamente");
+					}else {
+						salida.put("mensaje", "Error al eliminar");
 					}
 					
 					
